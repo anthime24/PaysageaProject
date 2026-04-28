@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(python -c ':*)",
-      "Bash(python \"c:/Users/anton/Documents/PGE2/Clinique de l'IA/S2/Backend_RAG/rag_immage/rag_cli.py\")",
-      "Bash(python \"c:/Users/anton/Documents/PGE2/Clinique de l'IA/S2/Backend_RAG/rag_immage/rag_cli.py\" --help)"
-    ]
-  }
-}

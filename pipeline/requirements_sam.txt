@@ -1,0 +1,5 @@
+# Dépendances pour preprocess_image.py
+Pillow>=10.0.0
+
+# Dépendances pour les tests (optionnel)
+pytest>=7.0.0

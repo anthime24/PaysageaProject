@@ -169,6 +169,37 @@ const UploadPage = () => {
                 imageUrl={previewUrl}
             />
 
+            {/* Style & Maintenance Dropdowns */}
+            <div className="w-full max-w-4xl px-4 animate-in slide-in-from-bottom-4 duration-1000">
+                <div className="grid grid-cols-2 gap-4">
+                    <PremiumDropdown
+                        label="Style de jardin"
+                        icon={Palette}
+                        value={filters.style}
+                        onChange={(v) => setFilters({ style: v })}
+                        options={[
+                            { id: 'naturel',      label: 'Naturel',        icon: Trees,   desc: 'Vivaces, graminées, prairie' },
+                            { id: 'japonais',     label: 'Japonais',       icon: Wind,    desc: 'Érable, bambou, mousse, zen' },
+                            { id: 'mediterraneen',label: 'Méditerranéen',  icon: Citrus,  desc: 'Olivier, lavande, romarin' },
+                            { id: 'champetre',    label: 'Champêtre',      icon: Flower2, desc: 'Rosier, lilas, pivoine' },
+                            { id: 'moderne',      label: 'Moderne',        icon: Layout,  desc: 'Graphique, architectural, if' },
+                            { id: 'potager',      label: 'Potager',        icon: Sprout,  desc: 'Aromates, légumes, fraisiers' },
+                        ]}
+                    />
+                    <PremiumDropdown
+                        label="Niveau d'entretien"
+                        icon={Shovel}
+                        value={filters.maintenance}
+                        onChange={(v) => setFilters({ maintenance: v })}
+                        options={[
+                            { id: 'faible',   label: 'Faible',   icon: Droplet,   desc: 'Plantes résistantes, peu d\'arrosage' },
+                            { id: 'modere',   label: 'Modéré',   icon: Clock,     desc: 'Taille saisonnière, arrosage régulier' },
+                            { id: 'intensif', label: 'Intensif', icon: Infinity,  desc: 'Fleurissement dense, suivi régulier' },
+                        ]}
+                    />
+                </div>
+            </div>
+
             {/* Custom Description Input */}
             <div className="w-full max-w-4xl px-4 animate-in slide-in-from-bottom-4 duration-1000 delay-100">
                 <div className="relative group">

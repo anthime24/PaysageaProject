@@ -1,0 +1,1 @@
+# Segmentation sémantique (SAM / SegFormer)

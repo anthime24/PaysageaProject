@@ -63,6 +63,8 @@ const useStore = create((set) => ({
             project_id: state.projectId || 'demo-' + Math.random().toString(36).substr(2, 9),
             user_intent: {
                 description: state.filters.description,
+                style: state.filters.style,
+                maintenance: state.filters.maintenance,
                 applied_tags: state.filters.appliedSuggestions
             },
             visual_context: {

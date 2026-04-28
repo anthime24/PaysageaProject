@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Download, Check, Sparkles, Wand2, Loader2, AlertCircle, Layers, Eye, EyeOff, Crosshair } from 'lucide-react'
 import useStore from '../store/useStore'
@@ -17,7 +17,45 @@ const ResultPage = () => {
     const [genError, setGenError] = useState(null)
     const [genMeta, setGenMeta] = useState(null) // { segments_used, mask_white_pct, plant_masks[] }
     const [editMode, setEditMode] = useState(false)
-    const [activeMaskIndex, setActiveMaskIndex] = useState(null) // index du masque visible en overlay
+    const [activeMaskIndex, setActiveMaskIndex] = useState(null)
+    const [maskOffsets, setMaskOffsets] = useState({}) // { [index]: {dx, dy} }
+    const draggingRef = useRef(null) // { index, startX, startY, startDx, startDy }
+
+    const handleMaskMouseDown = (e, i) => {
+        e.preventDefault()
+        e.stopPropagation()
+        setActiveMaskIndex(i)
+        draggingRef.current = {
+            index: i,
+            startX: e.clientX,
+            startY: e.clientY,
+            startDx: maskOffsets[i]?.dx || 0,
+            startDy: maskOffsets[i]?.dy || 0,
+        }
+    }
+
+    useEffect(() => {
+        const onMove = (e) => {
+            if (!draggingRef.current) return
+            const { index, startX, startY, startDx, startDy } = draggingRef.current
+            setMaskOffsets(prev => ({
+                ...prev,
+                [index]: {
+                    dx: startDx + (e.clientX - startX),
+                    dy: startDy + (e.clientY - startY),
+                }
+            }))
+        }
+        const onUp = () => { draggingRef.current = null }
+        window.addEventListener('mousemove', onMove)
+        window.addEventListener('mouseup', onUp)
+        return () => {
+            window.removeEventListener('mousemove', onMove)
+            window.removeEventListener('mouseup', onUp)
+        }
+    }, [])
+
+    const resetMaskOffsets = () => setMaskOffsets({})
 
     // ── Génération ──────────────────────────────────────────────────────────
     const handleGenerateImage = async () => {
@@ -45,7 +83,9 @@ const ResultPage = () => {
             const ragPrefs = {
                 style:       filters.style       || 'naturel',
                 exposition,
-                entretien:   filters.maintenance  || 'moyen',
+                entretien:   filters.maintenance === 'faible' ? 'faible'
+                    : filters.maintenance === 'intensif' ? 'intensif'
+                    : 'moyen',
                 description: filters.description  || '',
                 climat,
                 taille:      'moyen',
@@ -231,14 +271,64 @@ const ResultPage = () => {
                             alt="Garden view"
                         />
 
-                        {/* Overlay masque actif en mode édition */}
-                        {editMode && activePlantMask?.mask_web_url && (
-                            <img
-                                src={`${activePlantMask.mask_web_url}?t=${Date.now()}`}
-                                className="absolute inset-0 w-full h-full object-cover mix-blend-screen opacity-60 pointer-events-none"
-                                alt="Plant mask overlay"
-                            />
-                        )}
+                        {/* Overlays masques en mode édition (non-actifs, pointer-events none) */}
+                        {editMode && (genMeta?.plant_masks || []).map((mask, i) => {
+                            if (!mask.mask_web_url || activeMaskIndex === i) return null
+                            return (
+                                <img
+                                    key={i}
+                                    src={`${mask.mask_web_url}?t=1`}
+                                    draggable={false}
+                                    className="absolute inset-0 w-full h-full object-cover mix-blend-screen opacity-30 pointer-events-none select-none"
+                                    style={{
+                                        filter: `hue-rotate(${i * 40}deg) saturate(2)`,
+                                        zIndex: i + 1,
+                                    }}
+                                    alt=""
+                                />
+                            )
+                        })}
+
+                        {/* Masque actif draggable — rendu dans un wrapper sans overflow-hidden */}
+                        {editMode && activeMaskIndex !== null && (() => {
+                            const mask = (genMeta?.plant_masks || [])[activeMaskIndex]
+                            if (!mask?.mask_web_url) return null
+                            const { dx = 0, dy = 0 } = maskOffsets[activeMaskIndex] || {}
+                            const cx = mask.centroid ? mask.centroid[0] * 100 : 50
+                            const cy = mask.centroid ? mask.centroid[1] * 100 : 50
+                            return (
+                                <>
+                                    <img
+                                        key={`active-${activeMaskIndex}`}
+                                        src={`${mask.mask_web_url}?t=1`}
+                                        draggable={false}
+                                        onMouseDown={(e) => handleMaskMouseDown(e, activeMaskIndex)}
+                                        className="absolute inset-0 w-full h-full object-cover mix-blend-screen opacity-75 select-none cursor-grab"
+                                        style={{
+                                            transform: `translate(${dx}px, ${dy}px)`,
+                                            filter: `hue-rotate(${activeMaskIndex * 40}deg) saturate(2)`,
+                                            zIndex: 10,
+                                        }}
+                                        alt="Masque actif"
+                                    />
+                                    {/* Poignée de déplacement au centroïde */}
+                                    <div
+                                        onMouseDown={(e) => handleMaskMouseDown(e, activeMaskIndex)}
+                                        className="absolute w-8 h-8 rounded-full bg-white/90 shadow-lg border-2 border-[var(--color-nature)] flex items-center justify-center cursor-grab select-none"
+                                        style={{
+                                            left: `calc(${cx}% + ${dx}px - 16px)`,
+                                            top: `calc(${cy}% + ${dy}px - 16px)`,
+                                            zIndex: 20,
+                                        }}
+                                    >
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-[var(--color-nature)]">
+                                            <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M12 12v.01"/>
+                                            <path d="M3 12h18M12 3v18"/>
+                                        </svg>
+                                    </div>
+                                </>
+                            )
+                        })()}
 
                         {/* Overlay chargement */}
                         {isGenerating && (
@@ -371,20 +461,31 @@ const ResultPage = () => {
                                 })}
                             </div>
 
-                            {activePlantMask && (
-                                <div className="p-4 border-t border-gray-50 bg-stone-50">
-                                    <div className="flex items-center gap-2">
-                                        <Crosshair size={14} className="text-[var(--color-nature)]" />
-                                        <p className="text-[10px] font-black text-[var(--color-nature)] uppercase tracking-widest">
-                                            Plante {activeMaskIndex + 1} — {DEPTH_BAND_LABELS[activePlantMask.depth_band]}
+                            <div className="p-4 border-t border-gray-50 bg-stone-50 space-y-3">
+                                {activePlantMask && (
+                                    <div>
+                                        <div className="flex items-center gap-2">
+                                            <Crosshair size={14} className="text-[var(--color-nature)]" />
+                                            <p className="text-[10px] font-black text-[var(--color-nature)] uppercase tracking-widest">
+                                                Plante {activeMaskIndex + 1} — {DEPTH_BAND_LABELS[activePlantMask.depth_band]}
+                                            </p>
+                                        </div>
+                                        <p className="text-[10px] text-gray-400 mt-1">
+                                            Offset: ({maskOffsets[activeMaskIndex]?.dx?.toFixed(0) ?? 0}px, {maskOffsets[activeMaskIndex]?.dy?.toFixed(0) ?? 0}px)
+                                            · Profondeur: {(activePlantMask.mean_depth * 100).toFixed(0)}%
                                         </p>
                                     </div>
-                                    <p className="text-[10px] text-gray-400 mt-1">
-                                        Centroïde: ({(activePlantMask.centroid[0] * 100).toFixed(0)}%, {(activePlantMask.centroid[1] * 100).toFixed(0)}%)
-                                        · Profondeur: {(activePlantMask.mean_depth * 100).toFixed(0)}%
-                                    </p>
-                                </div>
-                            )}
+                                )}
+                                {Object.keys(maskOffsets).length > 0 && (
+                                    <button
+                                        onClick={resetMaskOffsets}
+                                        className="w-full py-2 px-4 rounded-xl bg-white border border-gray-200 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-[var(--color-structure)] hover:border-gray-300 transition-all"
+                                    >
+                                        Réinitialiser positions
+                                    </button>
+                                )}
+                                <p className="text-[10px] text-gray-300 text-center">Sélectionner une plante puis glisser la poignée ✛ sur l'image</p>
+                            </div>
                         </div>
                     )}
                 </div>

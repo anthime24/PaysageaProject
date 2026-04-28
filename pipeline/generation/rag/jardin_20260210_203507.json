@@ -1,0 +1,207 @@
+{
+  "succes": true,
+  "jardin": [
+    {
+      "plant_id": "plant_01",
+      "name": "Rosa banksiae 'lutea'",
+      "type": "arbuste",
+      "height_cm": 300,
+      "width_cm": 200,
+      "density": "medium",
+      "color": "jaune",
+      "climate": "tempere",
+      "sun_exposure": "plein_soleil",
+      "season": "printemps",
+      "water_needs": "faible",
+      "soil_preference": "neutre",
+      "maintenance_level": "moyen",
+      "price_range": "eleve",
+      "zone_hint": "middle_center",
+      "style_tags": [
+        "moyen_age"
+      ],
+      "reason": "Rosa banksiae 'lutea' est un arbuste fleuri qui produit des fleurs jaunes douces et parfumées. Il est adapté au climat tempéré et à l'exposition plein soleil. Bien que son entretien soit moyen, il est idéal pour votre jardin en raison de sa beauté et de sa floraison abondante."
+    },
+    {
+      "plant_id": "plant_02",
+      "name": "Haie fleurie caduque",
+      "type": "arbuste",
+      "height_cm": 150,
+      "width_cm": 100,
+      "density": "high",
+      "color": "rouge|blanc",
+      "climate": "tempere",
+      "sun_exposure": "plein_soleil",
+      "season": "printemps",
+      "water_needs": "faible",
+      "soil_preference": "neutre",
+      "maintenance_level": "faible",
+      "price_range": "eleve",
+      "zone_hint": "foreground_left",
+      "style_tags": [
+        "moyen_age"
+      ],
+      "reason": "La haie fleurie caduque est un élément esthétique important pour votre jardin médiéval. Elle produit des fleurs rouges et blanches qui ajouteront une touche de couleur au paysage."
+    },
+    {
+      "plant_id": "plant_03",
+      "name": "Iris germanica 'apricot frost'",
+      "type": "fleur",
+      "height_cm": 60,
+      "width_cm": 45,
+      "density": "medium",
+      "color": "orange|blanc",
+      "climate": "tempere",
+      "sun_exposure": "plein_soleil",
+      "season": "printemps",
+      "water_needs": "faible",
+      "soil_preference": "neutre",
+      "maintenance_level": "faible",
+      "price_range": "eleve",
+      "zone_hint": "foreground_right",
+      "style_tags": [
+        "moyen_age"
+      ],
+      "reason": "Iris germanica 'apricot frost' est un beau fleur qui produit des fleurs orange et blanches. Il est adapté au climat tempéré et à l'exposition plein soleil."
+    },
+    {
+      "plant_id": "plant_04",
+      "name": "Rosmarinus officinalis 'montagnette'",
+      "type": "arbuste",
+      "height_cm": 60,
+      "width_cm": 90,
+      "density": "high",
+      "color": "bleu",
+      "climate": "tempere",
+      "sun_exposure": "plein_soleil",
+      "season": "printemps",
+      "water_needs": "faible",
+      "soil_preference": "neutre",
+      "maintenance_level": "faible",
+      "price_range": "moyen",
+      "zone_hint": "middle_left",
+      "style_tags": [
+        "moyen_age"
+      ],
+      "reason": "Rosmarinus officinalis 'montagnette' est un arbuste fleuri qui produit des fleurs bleues et parfumées. Il est adapté au climat tempéré et à l'exposition plein soleil."
+    },
+    {
+      "plant_id": "plant_05",
+      "name": "Haie méditerranéenne mixte fleurie",
+      "type": "arbuste",
+      "height_cm": 120,
+      "width_cm": 90,
+      "density": "medium",
+      "color": "bleu|jaune",
+      "climate": "tempere",
+      "sun_exposure": "plein_soleil",
+      "season": "printemps",
+      "water_needs": "faible",
+      "soil_preference": "neutre",
+      "maintenance_level": "moyen",
+      "price_range": "eleve",
+      "zone_hint": "background_center",
+      "style_tags": [
+        "moyen_age"
+      ],
+      "reason": "La haie méditerranéenne mixte fleurie est un élément esthétique important pour votre jardin médiéval. Elle produit des fleurs bleues et jaunes qui ajouteront une touche de couleur au paysage."
+    },
+    {
+      "plant_id": "plant_06",
+      "name": "Aquilegia flabelatta",
+      "type": "fleur",
+      "height_cm": 90,
+      "width_cm": 45,
+      "density": "medium",
+      "color": "bleu|blanc",
+      "climate": "tempere",
+      "sun_exposure": "plein_soleil",
+      "season": "printemps",
+      "water_needs": "faible",
+      "soil_preference": "neutre",
+      "maintenance_level": "faible",
+      "price_range": "eleve",
+      "zone_hint": "foreground_center",
+      "style_tags": [
+        "moyen_age"
+      ],
+      "reason": "Aquilegia flabelatta est un beau fleur qui produit des fleurs bleues et blanches. Il est adapté au climat tempéré et à l'exposition plein soleil."
+    },
+    {
+      "plant_id": "plant_07",
+      "name": "Flamme en schiste",
+      "type": "couvre_sol",
+      "height_cm": 10,
+      "width_cm": 30,
+      "density": "low",
+      "color": "gris|rouge",
+      "climate": "tempere",
+      "sun_exposure": "plein_soleil",
+      "season": "toutes_saisons",
+      "water_needs": "faible",
+      "soil_preference": "neutre",
+      "maintenance_level": "faible",
+      "price_range": "eleve",
+      "zone_hint": "foreground_left",
+      "style_tags": [
+        "moyen_age"
+      ],
+      "reason": "La flamme en schiste est un élément décoratif qui ajoutera une touche de naturel au jardin. Elle est adaptée au climat tempéré et à l'exposition plein soleil."
+    },
+    {
+      "plant_id": "plant_08",
+      "name": "Fontaine Japonaise shishi odoshi",
+      "type": "vivace",
+      "height_cm": 120,
+      "width_cm": 60,
+      "density": "low",
+      "color": "jaune|vert",
+      "climate": "tempere",
+      "sun_exposure": "plein_soleil",
+      "season": "toutes_saisons",
+      "water_needs": "eleve",
+      "soil_preference": "neutre",
+      "maintenance_level": "faible",
+      "price_range": "eleve",
+      "zone_hint": "middle_right",
+      "style_tags": [
+        "moyen_age"
+      ],
+      "reason": "La fontaine japonaise shishi odoshi est un élément décoratif qui ajoutera une touche d'exotisme au jardin. Elle est adaptée au climat tempéré et à l'exposition plein soleil."
+    },
+    {
+      "plant_id": "plant_09",
+      "name": "Cloture Canisse en bambou naturel fendu",
+      "type": "couvre_sol",
+      "height_cm": 150,
+      "width_cm": 100,
+      "density": "high",
+      "color": "vert",
+      "climate": "tempere",
+      "sun_exposure": "plein_soleil",
+      "season": "toutes_saisons",
+      "water_needs": "faible",
+      "soil_preference": "neutre",
+      "maintenance_level": "faible",
+      "price_range": "eleve",
+      "zone_hint": "background_right",
+      "style_tags": [
+        "moyen_age"
+      ],
+      "reason": "La cloture canisse en bambou naturel fendu est un élément décoratif qui ajoutera une touche de naturel au jardin. Elle est adaptée au climat tempéré et à l'exposition plein soleil."
+    }
+  ],
+  "infos": {
+    "description": "fleuri",
+    "style": "moyen_age",
+    "taille": "petit",
+    "plant_count": 9,
+    "climat": "tempere",
+    "exposition": "plein_soleil",
+    "budget": "eleve",
+    "entretien": "faible",
+    "region": "France",
+    "sol": "neutre",
+    "elements": []
+  }
+}

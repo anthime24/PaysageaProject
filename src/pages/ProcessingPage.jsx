@@ -58,7 +58,7 @@ const ProcessingPage = () => {
                 setProgress(100)
                 setCurrentStep(STEPS.length - 1)
                 setTimeout(() => {
-                    setProjectId('demo-' + Math.random().toString(36).substr(2, 9))
+                    setProjectId('demo-' + Math.random().toString(36).slice(2, 11))
                     navigate('/result/demo')
                 }, 1000)
                 return
@@ -68,7 +68,7 @@ const ProcessingPage = () => {
                 const resp = await fetch(`${API_URL}/api/project/analyze`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ preprocess_json: preprocessData.preprocessed_json })
+                    body: JSON.stringify({ preprocess_json: preprocessData.preprocessed_json, force: false })
                 })
                 if (!resp.ok) {
                     const e = await resp.json().catch(() => ({}))
@@ -116,13 +116,16 @@ const ProcessingPage = () => {
                             setProgress(100)
                             setCurrentStep(STEPS.length - 1)
                             setJobStatus('done')
-                            console.log('[PIPELINE] Analyse terminée:', job.result)
+                            const isZoneOnly = job.result?.zone_only === true
+                            console.log(`[PIPELINE] Analyse terminée (${isZoneOnly ? 'zone-only' : 'SAM+Depth'}):`, job.result)
 
                             setAnalysisResult({
                                 ...job.result,
-                                summary: `Analyse terminée en ${job.elapsed_s}s`
+                                summary: isZoneOnly
+                                    ? `Mode zone-only (SAM timeout après ${job.elapsed_s}s)`
+                                    : `Analyse terminée en ${job.elapsed_s}s`
                             })
-                            setProjectId(preprocessData?.image_id || 'demo-' + Math.random().toString(36).substr(2, 9))
+                            setProjectId(preprocessData?.image_id || 'demo-' + Math.random().toString(36).slice(2, 11))
                             setTimeout(() => navigate(`/result/${preprocessData?.image_id || 'demo'}`), 800)
 
                         } else if (job.status === 'error') {
@@ -249,16 +252,32 @@ const ProcessingPage = () => {
 
                     {/* Erreur */}
                     {jobStatus === 'error' && errorMsg && (
-                        <div className="p-5 bg-red-50 border border-red-100 rounded-2xl flex items-start gap-3">
-                            <AlertCircle size={18} className="text-red-500 flex-shrink-0 mt-0.5" />
-                            <div>
-                                <p className="text-sm font-bold text-red-600">Erreur lors de l'analyse</p>
-                                <p className="text-xs text-red-400 mt-1">{errorMsg}</p>
+                        <div className="p-5 bg-red-50 border border-red-100 rounded-2xl space-y-3">
+                            <div className="flex items-start gap-3">
+                                <AlertCircle size={18} className="text-red-500 flex-shrink-0 mt-0.5" />
+                                <p className="text-sm font-bold text-red-600">Erreur lors de l'analyse SAM</p>
+                            </div>
+                            <pre className="text-[10px] text-red-400 whitespace-pre-wrap break-all font-mono bg-red-100/50 rounded-lg p-3 max-h-40 overflow-y-auto">
+                                {errorMsg}
+                            </pre>
+                            <div className="flex gap-3 flex-wrap">
+                                <button
+                                    onClick={() => {
+                                        // Mode dégradé : passer directement à la génération sans SAM
+                                        const { setAnalysisResult, setProjectId, preprocessData } = useStore.getState()
+                                        setAnalysisResult({ mode: 'zone_only', summary: 'Mode sans SAM (analyse échouée)' })
+                                        setProjectId(preprocessData?.image_id || 'demo-' + Math.random().toString(36).slice(2, 11))
+                                        navigate(`/result/${preprocessData?.image_id || 'demo'}`)
+                                    }}
+                                    className="flex-1 py-2.5 px-4 rounded-xl bg-[var(--color-nature)] text-white text-xs font-black uppercase tracking-widest hover:opacity-90"
+                                >
+                                    Générer sans SAM →
+                                </button>
                                 <button
                                     onClick={() => navigate('/upload')}
-                                    className="mt-3 text-xs font-bold text-red-500 underline"
+                                    className="py-2.5 px-4 rounded-xl bg-white border border-red-200 text-red-500 text-xs font-bold"
                                 >
-                                    Retour à l'upload
+                                    Retour
                                 </button>
                             </div>
                         </div>

@@ -1,0 +1,63 @@
+{
+  "project_id": "demo-gdracgi0v",
+  "user_intent": {
+    "description": "je veux une plante harmonieuse ",
+    "style": "champetre",
+    "maintenance": "modere",
+    "applied_tags": []
+  },
+  "visual_context": {
+    "image_url": "http://localhost:3001/work/1776841448394-363648950_preprocessed.jpg",
+    "user_zone": [
+      {
+        "x": 0.20808541626827298,
+        "y": 0.6535781012208774
+      },
+      {
+        "x": 0.41614252998576406,
+        "y": 0.7616862093289856
+      },
+      {
+        "x": 0.752025582849949,
+        "y": 0.7555668824549416
+      },
+      {
+        "x": 0.7887415440942122,
+        "y": 0.6189019156012956
+      },
+      {
+        "x": 0.46237744414520654,
+        "y": 0.5954444959174608
+      }
+    ]
+  },
+  "environmental_context": {
+    "location": {
+      "label": "Saint-Malo, France",
+      "short_label": "Saint-Malo",
+      "lat": 48.649221,
+      "lon": -2.0184218,
+      "place_id": "ChIJXb8mIRCBDkgRLeErsq196fg"
+    },
+    "botanical_filter": {
+      "usda_zone": 10,
+      "temp_min_local": 0.9,
+      "temp_max_local": 28.8,
+      "humidity_level": "humid",
+      "sun_exposure": "sun",
+      "annual_rain_mm": 948.2,
+      "current_month": 4
+    },
+    "climate_summary": {
+      "temp_mean_annual_c": 13.3,
+      "temp_max_record_c": 28.8,
+      "temp_min_record_c": 0.9,
+      "precip_annual_mm": 948.2,
+      "humidity_annual_pct": 81.8,
+      "sunshine_h_per_day": 8.6,
+      "frost_days_per_year": 0,
+      "hardiness_zone": "Zone 10 (méditerranéen chaud)",
+      "climate_type": "Océanique tempéré"
+    }
+  }
+}

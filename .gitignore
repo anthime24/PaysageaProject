@@ -1,4 +1,72 @@
+# ─── Node.js ──────────────────────────────────────────────────────────────────
 node_modules/
-.env*
 dist/
+.npm
+npm-debug.log*
+
+# ─── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+venv/
+.venv/
+env/
+.env/
+*.egg-info/
+*.egg
+.Python
+
+# ─── Environnements & Secrets ─────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+# Template autorisé :
+!.env.example
+
+# ─── Poids de modèles ML (trop lourds pour GitHub) ───────────────────────────
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.safetensors
+
+# ─── Données brutes (trop lourdes pour GitHub) ────────────────────────────────
+rag/data/all_photos/
+Backend_RAG/rag_immage/data/all_photos/
+resultat_ollama/photos_par_plante/
+
+# ─── Fichiers générés / Runtime ───────────────────────────────────────────────
+# Dossiers de travail du pipeline IA
+pipeline/work/
+pipeline/shared/
+# Fichiers de sortie
+*.npy
+*.npz
+*_depth_preview.png
+*_sam_visualization.png
+*_pipeline_result.json
+
+# ─── ChromaDB (regénérable depuis plantes_data.json) ─────────────────────────
+pipeline/generation/chroma_db/
+rag/chroma_db/
+
+# ─── Uploads backend (fichiers runtime) ───────────────────────────────────────
+backend/uploads/
+uploads/
+
+# ─── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ─── IDEs ─────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
 .DS_Store
+Thumbs.db
+
+# ─── Git ──────────────────────────────────────────────────────────────────────
+*.orig
+*.rej
