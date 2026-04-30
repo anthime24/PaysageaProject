@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python pipeline/preprocess_cli.py --help)",
+      "Bash(python -X utf8 pipeline/preprocess_cli.py --input pipeline/generation/data/garden.jpg --out-dir pipeline/work)",
+      "Bash(pip list *)",
+      "Bash(nvidia-smi)",
+      "Bash(\"c:/Users/Administrateur/Desktop/Paysagea/PaysageaProject/.venv/Scripts/python.exe\" -c \"import torch; print\\('torch', torch.__version__\\)\")",
+      "Bash(python -c \"import torch; print\\('torch', torch.__version__\\)\")",
+      "Bash(\"c:/Users/Administrateur/Desktop/Paysagea/PaysageaProject/.venv/Scripts/python.exe\" -c \"import numpy; print\\('numpy', numpy.__version__\\)\")",
+      "Bash(\"c:/Users/Administrateur/Desktop/Paysagea/PaysageaProject/.venv/Scripts/python.exe\" -c \"import torch; print\\('CUDA disponible:', torch.cuda.is_available\\(\\)\\); print\\('torch version:', torch.__version__\\)\")"
+    ]
+  }
+}

@@ -19,7 +19,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-PREPROCESS_DIR = ROOT / "SAM" / "segment-anything" / "preprocess"
+PREPROCESS_DIR = ROOT / "preprocess"
 sys.path.insert(0, str(PREPROCESS_DIR))
 
 from preprocess_image import preprocess_image, save_metadata  # noqa: E402

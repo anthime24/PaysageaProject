@@ -30,8 +30,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 ROOT = Path(__file__).resolve().parent
-SAM_ROOT = ROOT / "SAM" / "segment-anything"
-DEPTH_ROOT = ROOT / "Depth-Anything"
+SAM_ROOT = ROOT / "sam"
+DEPTH_ROOT = ROOT / "depth"
 
 
 def resolve_preprocessed_image_path(preprocess_json_path: Path, preprocess_data: dict) -> Path:
