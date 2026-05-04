@@ -8,7 +8,8 @@
       "Bash(\"c:/Users/Administrateur/Desktop/Paysagea/PaysageaProject/.venv/Scripts/python.exe\" -c \"import torch; print\\('torch', torch.__version__\\)\")",
       "Bash(python -c \"import torch; print\\('torch', torch.__version__\\)\")",
       "Bash(\"c:/Users/Administrateur/Desktop/Paysagea/PaysageaProject/.venv/Scripts/python.exe\" -c \"import numpy; print\\('numpy', numpy.__version__\\)\")",
-      "Bash(\"c:/Users/Administrateur/Desktop/Paysagea/PaysageaProject/.venv/Scripts/python.exe\" -c \"import torch; print\\('CUDA disponible:', torch.cuda.is_available\\(\\)\\); print\\('torch version:', torch.__version__\\)\")"
+      "Bash(\"c:/Users/Administrateur/Desktop/Paysagea/PaysageaProject/.venv/Scripts/python.exe\" -c \"import torch; print\\('CUDA disponible:', torch.cuda.is_available\\(\\)\\); print\\('torch version:', torch.__version__\\)\")",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); pts=d.get\\('normalized_points',[]\\); print\\(f'Points: {len\\(pts\\)}'\\); [print\\(f'  \\({p[\\\\\"x\\\\\"]:.3f}, {p[\\\\\"y\\\\\"]:.3f}\\)'\\) for p in pts[:6]]\")"
     ]
   }
 }

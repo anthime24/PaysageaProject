@@ -1,4 +1,4 @@
-# 🌿 Paysagea IA — Monorepo
+# 🌿 Paysagea 
 
 > Plateforme de conception de jardin assistée par IA : analyse de photos de jardin, segmentation (SAM), estimation de profondeur (Depth Anything), RAG plantes, et génération d'image (BFL FLUX Fill Pro).
 

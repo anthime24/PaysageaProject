@@ -584,6 +584,14 @@ def main() -> None:
     )
     white_pct_bin = 100.0 * np.sum(bfl_mask_arr == 255) / bfl_mask_arr.size
 
+    # Fallback: si les segments SAM sont trop petits, utiliser la zone directement
+    if white_pct_bin < 1.0:
+        print(f"  [MASK] Masque SAM trop petit ({white_pct_bin:.2f}%) → fallback zone_only")
+        bfl_mask_arr = np.where(zone_mask >= 128, 255, 0).astype(np.uint8)
+        Image.fromarray(bfl_mask_arr, mode="L").save(bin_path)
+        white_pct_bin = 100.0 * np.sum(bfl_mask_arr == 255) / bfl_mask_arr.size
+        print(f"  [MASK] Zone directe: {white_pct_bin:.1f}% blanc")
+
     # Sanity check: si masque > 65% → reduire par erosion
     if white_pct_bin > 65.0:
         print(f"  [MASK] Masque trop large ({white_pct_bin:.1f}%) -> erosion")
